@@ -1,7 +1,9 @@
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 import { join } from 'path';
 
 export class ConfigService {
+  secret: string;
+
   mongoHost: string;
   mongoUser: string;
   mongoPassword: string;
@@ -11,7 +13,9 @@ export class ConfigService {
   rabbitMqPassword: string;
 
   constructor(environment: string) {
-    dotenv.config({ path: join(__dirname, '../../.env' + environment) });
+    dotenv.config({ path: join(__dirname, '../../.env.' + environment) });
+
+    this.secret = process.env.SECRET;
 
     this.mongoHost = process.env.MONGO_HOST;
     this.mongoUser = process.env.MONGO_USER;
