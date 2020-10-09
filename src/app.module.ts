@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from './config/config.service';
-import { TaskModule } from './api/task/task.module';
-import { UserModule } from './api/user/user.module';
+import { TaskModule } from './gateway/task/task.module';
+import { UserModule } from './gateway/user/user.module';
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const Config = new ConfigService(process.env.NODE_ENV);
