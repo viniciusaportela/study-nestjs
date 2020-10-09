@@ -9,7 +9,7 @@ export class TaskService {
   constructor(@InjectModel('task') private taskModel: Model<TaskDocument>) {}
 
   async create(createTaskDto) {
-    await this.taskModel.create(createTaskDto)
+    return (await this.taskModel.create(createTaskDto)).id;
   }
 
   async delete(taskId: string) {

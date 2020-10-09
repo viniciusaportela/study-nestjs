@@ -8,7 +8,7 @@ export class TaskController {
 
   @Post()
   async create(@Body() createTaskDto: CreateTaskDto) {
-    await this.service.create(createTaskDto)
+    return {id: await this.service.create(createTaskDto)}
   }
 
   @Delete('/:task')
