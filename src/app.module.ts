@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigService } from './config/config.service';
 import { TaskModule } from './microservices/task/task.module';
 import { UserModule } from './microservices/user/user.module';
 
-// const mongoUri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DATABASE}`;
-const mongoUri = `mongodb://root:viarpo01@localhost/example`;
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+const Config = new ConfigService(process.env.NODE_ENV);
+
+const mongoUri = `mongodb://${Config.mongoUser}:${Config.mongoPassword}@${Config.mongoHost}/${Config.mongoDatabase}`;
 
 @Module({
   imports: [
