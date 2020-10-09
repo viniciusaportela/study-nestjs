@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CreateTaskDto } from "./dto/create-task.dto";
@@ -14,6 +14,10 @@ export class TaskService {
   }
 
   async delete(taskId: string) {
-    await this.taskModel.remove({_id: taskId})
+    const deleted = await this.taskModel.deleteOne({_id: taskId})
+
+    if (deleted.deletedCount === 0) {
+      throw new NotFoundException("This task doesn't exists")
+    }
   }
 }
