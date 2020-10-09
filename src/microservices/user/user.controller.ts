@@ -1,16 +1,15 @@
-import { Body, Controller, Post, UseFilters } from '@nestjs/common';
-import { TreatPasswordPipe } from './pipes/compose/treat-password.pipe';
+import { Body, Controller, Post } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
 
-@Controller()
+@Controller('users')
 export class UserController {
   constructor(private service: UserService) {}
 
   @Post()
   async create(
-    @Body('name') name: string,
-    @Body('password', ...TreatPasswordPipe) password: string,
+    @Body() createUserDto: CreateUserDto
   ) {
-    await this.service.create({ name, password });
+    await this.service.create(createUserDto);
   }
 }

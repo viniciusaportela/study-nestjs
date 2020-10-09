@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Roles } from '../../../declarations/roles';
+import { Roles, RolesStringArray } from '../../../@types/roles';
 
 export type UserDocument = User & Document;
 
@@ -14,7 +14,7 @@ export class User {
 
   @Prop({
     type: 'String',
-    enum: Roles,
+    enum: RolesStringArray,
     default: 'user',
   })
   level: Roles;

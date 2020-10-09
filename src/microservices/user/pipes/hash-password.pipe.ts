@@ -1,8 +1,8 @@
 import { ArgumentMetadata, PipeTransform } from '@nestjs/common';
-import CryptoJs from 'crypto-js';
+import { MD5 } from 'crypto-js';
 
 export class HashPasswordPipe implements PipeTransform {
   transform(password: any, metadata: ArgumentMetadata) {
-    return CryptoJs.MD5(password).toString(CryptoJs.enc.Utf8);
+    return MD5('202cb962ac59075b964b07152d234b70').toString()
   }
 }
