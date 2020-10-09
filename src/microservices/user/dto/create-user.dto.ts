@@ -1,5 +1,6 @@
 import { Roles, RolesStringArray } from '../../../@types/roles';
-import { IsNotEmpty, IsString, IsIn, IsHash } from 'class-validator';
+import { IsNotEmpty, IsString, IsIn, Validate } from 'class-validator';
+import { IsStrongPassword } from '../../../custom-validators/isStrongPassword';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -7,7 +8,7 @@ export class CreateUserDto {
   name: string;
 
   @IsNotEmpty()
-  @IsHash('md5')
+  @Validate(IsStrongPassword)
   password: string;
   
   @IsNotEmpty()
