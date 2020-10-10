@@ -1,4 +1,4 @@
-import { Roles, RolesStringArray } from '../../../@types/roles';
+import { Roles, RolesStringArray } from '../../../../@types/roles';
 import { IsNotEmpty, IsString, IsIn, Validate, IsHash } from 'class-validator';
 import { IsStrongPassword } from '../../../custom-validators/isStrongPassword';
 

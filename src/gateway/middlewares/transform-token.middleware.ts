@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 import { ForbiddenException, NestMiddleware } from '@nestjs/common';
-import { JwtDecoded } from '../@types/jwt-decoded';
+import { JwtDecoded } from '../../@types/jwt-decoded';
 
 export class TransformTokenMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {

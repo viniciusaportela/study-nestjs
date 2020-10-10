@@ -1,39 +1,24 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { json } from 'body-parser';
-import * as cors from 'cors';
+import { gatewayLoader } from './gateway/gateway.loader';
+import loaders from './loaders'
 
-import { AppModule } from './app.module';
-import { ConfigService } from './config/config.service';
-import { HttpExceptionFilter } from './filters/http-exception.filter';
+async function loadMicroservices(loaders: any[]) {
+  await Promise.all(loaders.map(loader => loader()))
+}
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development'
-const Config = new ConfigService(process.env.NODE_ENV)
+async function loadGateway(loader: () => Promise<void>) {
+  await loader();
+}
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const gateway: any = loaders.splice(loaders.length - 1, 1);
 
-  // app.connectMicroservice({
-  //   transport: Transport.RMQ,
-  //   options: {
-  //     urls: [Config.rabbitMqUri],
-  //     queue: 'mailer',
-  //     queueOptions: {
-  //       durable: false,
-  //     }
-  //   }
-  // })
+  console.log(loaders)
+  console.log(gateway)
 
-  app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new HttpExceptionFilter());
-
-  app.use(json());
-  app.use(cors());
-
-  await app.listen(3000);
-
-  console.log('NestJS started on port 3000');
+  //console.log('bootstrap')
+  //await loadMicroservices(loaders)
+  //await loadGateway(gateway)
+  gatewayLoader();
 }
 
 bootstrap();
