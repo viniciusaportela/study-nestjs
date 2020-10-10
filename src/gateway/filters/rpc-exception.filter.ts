@@ -22,7 +22,7 @@ export class RpcExceptionFilter extends BaseExceptionFilter {
         timestamp: new Date().getTime(),
       })
     } else {
-      console.log('default')
+      console.log('default ', exception)
       super.catch(exception, host)
     }
   }

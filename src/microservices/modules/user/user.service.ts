@@ -4,8 +4,8 @@ import { InjectModel } from "@nestjs/mongoose";
 import { MD5 } from "crypto-js";
 import { Model } from "mongoose";
 
-import { AuthenticateUserDto } from "../../../gateway/api/user/dto/authenticate-user.dto";
-import { CreateUserDto } from "../../../gateway/api/user/dto/create-user.dto";
+import { AuthenticateUserDto } from "../../../gateway/modules/user/dto/authenticate-user.dto";
+import { CreateUserDto } from "../../../gateway/modules/user/dto/create-user.dto";
 import { UserDocument } from "./schemas/user.schema";
 import config from '../../../config';
 import { BadCredentialsException } from './exceptions/bad-credentials.exception';
@@ -14,6 +14,12 @@ import { NotFoundException } from '../../exceptions/not-found.exception';
 @Injectable()
 export class UserService {
   constructor(@InjectModel('user') private userModel: Model<UserDocument>) {}
+
+  async get(userId: string) {
+    console.log('UserService -> ', userId)
+    console.log('UserService -> ', await this.userModel.findOne({ _id: userId }))
+    return await this.userModel.findOne({ _id: userId });
+  }
 
   async create(createUserDto: CreateUserDto) {
     return await this.userModel.create(createUserDto)
@@ -25,7 +31,7 @@ export class UserService {
 
     if (userByName) {
       if (userByName.password === hashedProvidedPassword) {
-        const token = jwt.sign({name: userByName.name, roles: userByName.level, id: userByName._id}, config.secret)
+        const token = jwt.sign({ name: userByName.name, roles: userByName.level, id: userByName._id }, config.secret)
         return token;
       } else {
         throw new BadCredentialsException();

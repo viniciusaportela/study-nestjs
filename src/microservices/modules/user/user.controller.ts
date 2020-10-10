@@ -1,13 +1,18 @@
 import { Controller } from "@nestjs/common";
 import { MessagePattern } from '@nestjs/microservices';
-import { AuthenticateUserDto } from "../../../gateway/api/user/dto/authenticate-user.dto";
-import { CreateUserDto } from "../../../gateway/api/user/dto/create-user.dto";
+import { AuthenticateUserDto } from "../../../gateway/modules/user/dto/authenticate-user.dto";
+import { CreateUserDto } from "../../../gateway/modules/user/dto/create-user.dto";
 import { UserPatterns } from "./user.patterns";
 import { UserService } from "./user.service";
 
 @Controller()
 export class UserController {
   constructor(private service: UserService){}
+
+  @MessagePattern(UserPatterns.GET)
+  async getUser(id: string) {
+    return await this.service.get(id);
+  }
 
   @MessagePattern(UserPatterns.CREATE)
   async createUser(data: CreateUserDto) {

@@ -9,6 +9,10 @@ import { UserPatterns } from '../../../microservices/modules/user/user.patterns'
 export class UserService {
   constructor(@Inject('USER_SERVICE') private client: ClientProxy) {}
 
+  get(id: string) {
+    return this.client.send(UserPatterns.GET, id);
+  }
+
   create(createUserDto: CreateUserDto) {
     return this.client.send(UserPatterns.CREATE, createUserDto)
   }

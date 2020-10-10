@@ -3,6 +3,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
+import { UserResolver } from './graphql/user.resolver';
+
 import { RabbitMqQueues } from '../../../constants/rabbit-mq-queues';
 import { rabbitMqUri } from '../../../constants/rabbit-mq-uri';
 
@@ -21,6 +23,6 @@ import { rabbitMqUri } from '../../../constants/rabbit-mq-uri';
     }])
   ],
   controllers: [UserController],
-  providers: [UserService]
+  providers: [UserService, UserResolver]
 })
 export class UserModule {}
