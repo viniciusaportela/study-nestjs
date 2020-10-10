@@ -8,8 +8,8 @@ import { UserService } from "./user.service";
 export class UserController {
   constructor(private service: UserService){}
 
-  @MessagePattern({cmd: UserPatterns.CREATE})
+  @MessagePattern(UserPatterns.CREATE)
   async createUser(data: CreateUserDto) {
-    return await this.service.create(data);
+    await this.service.create(data);
   }
 }
