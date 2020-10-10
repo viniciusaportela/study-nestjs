@@ -9,11 +9,8 @@ import {
 @Catch(HttpException, BadRequestException)
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
-    console.log('catch http exception ', exception);
-
     const context = host.switchToHttp();
     const response = context.getResponse();
-    const message = (exception.getResponse() as any).message
     let status = exception.getStatus();
 
     if (exception instanceof BadRequestException) {
@@ -22,7 +19,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     response.status(status).json({
       statusCode: status,
-      ...(exception.getResponse() && exception.getResponse()),
+      ...(exception.getResponse && exception.getResponse()),
       timestamp: new Date().getTime(),
     });
   }

@@ -22,7 +22,7 @@ export class UserController {
     @Body() authenticateUserDto: AuthenticateUserDto
   ) {
     return {
-      token: this.service.authenticate(authenticateUserDto)
+      token: await this.service.authenticate(authenticateUserDto).toPromise()
     };
   }
 }
