@@ -17,3 +17,9 @@ export class User {
   @Field(type => Roles)
   level: Roles;
 }
+
+@ObjectType()
+export class AuthenticationToken {
+  @Field(type => String, {nullable: true})
+  token: string;
+}

@@ -1,7 +1,9 @@
+import { UseGuards } from "@nestjs/common";
 import { Args, Resolver, Query, Mutation } from "@nestjs/graphql";
 import { Roles } from "../../../../@types/roles";
+import { GraphQlAuthGuard } from "../../../guards/grapql-auth.guard";
 import { UserService } from "../user.service";
-import { User } from "./user.model";
+import { AuthenticationToken, User } from "./user.model";
 
 @Resolver()
 export class UserResolver {
@@ -21,8 +23,8 @@ export class UserResolver {
     return this.userService.create({ name, password, level })
   }
 
-  @Mutation(returns => String)
+  @Mutation(returns => AuthenticationToken)
   async authenticateUser(@Args('name') name: string, @Args('password') password: string) {
-    return this.userService.authenticate({name, password});
+    return { token: await this.userService.authenticate({name, password}).toPromise() };
   }
 }
