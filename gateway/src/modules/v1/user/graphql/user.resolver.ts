@@ -1,5 +1,5 @@
 import { Args, Resolver, Query, Mutation } from "@nestjs/graphql";
-import { Roles } from "../../../@types/roles";
+import { Roles } from "../../../../@types/roles";
 import { UserService } from "../user.service";
 import { AuthenticationToken, User } from "./user.model";
 

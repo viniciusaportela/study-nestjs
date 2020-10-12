@@ -1,5 +1,5 @@
 import { Field, ObjectType, registerEnumType } from "@nestjs/graphql";
-import { Roles } from "../../../@types/roles";
+import { Roles } from "../../../../@types/roles";
 
 registerEnumType(Roles, { name: 'Roles' })
 

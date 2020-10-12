@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql'
-import { UserModule } from './modules/user/user.module';
+import { UserModule } from './modules/v1/user/user.module';
 
 @Module({
   imports: [
