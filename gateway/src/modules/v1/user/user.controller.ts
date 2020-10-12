@@ -5,7 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { HashPasswordPipe } from './pipes/hash-password.pipe';
 import { UserService } from './user.service';
 
-@Controller('users')
+@Controller('v1/users')
 export class UserController {
   constructor(private service: UserService) {}
 
