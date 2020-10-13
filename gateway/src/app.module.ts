@@ -6,8 +6,8 @@ import { UserModule } from './modules/v1/user/user.module';
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: true,
-      playground: true,
-      debug: true,
+      playground: process.env.NODE_ENV !== 'production',
+      debug: process.env.NODE_ENV !== 'production',
     }),
     UserModule
   ],
