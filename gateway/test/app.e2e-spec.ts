@@ -37,7 +37,7 @@ describe('AppController (e2e)', () => {
   describe('/v1/users (POST)', () => {
     baseUrl = '/v1/users';
 
-    it('should throw a error if not give name', async () => {
+    it('should throw a error if not the required inputs', async () => {
       const res = await request(app.getHttpServer())
         .post(baseUrl).send({})
 
@@ -45,26 +45,8 @@ describe('AppController (e2e)', () => {
       expect(res.body).toHaveProperty('error', 'Bad Request');
       expect(res.body).toHaveProperty('message');
       expect(res.body.message).toContain('name should not be empty');
-    })
-
-    it('should throw a error if not give password', async () => {
-      const res = await request(app.getHttpServer())
-        .post(baseUrl).send({})
-
-      expect(res.status).toBe(422);
-      expect(res.body).toHaveProperty('error', 'Bad Request');
-      expect(res.body).toHaveProperty('message');
-      expect(res.body.message).toContain('password should not be empty')
-    })
-
-    it('should throw a error if not give level', async () => {
-      const res = await request(app.getHttpServer())
-        .post(baseUrl).send({})
-
-      expect(res.status).toBe(422);
-      expect(res.body).toHaveProperty('error', 'Bad Request');
-      expect(res.body).toHaveProperty('message');
-      expect(res.body.message).toContain('level should not be empty')
+      expect(res.body.message).toContain('password should not be empty');
+      expect(res.body.message).toContain('level should not be empty');
     })
 
     it('should throw a error if level is not in Roles', async () => {
