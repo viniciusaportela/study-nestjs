@@ -2,7 +2,7 @@ import { UseFilters } from "@nestjs/common";
 import { ApolloError, AuthenticationError } from 'apollo-server-express';
 import { Args, Resolver, Query, Mutation } from "@nestjs/graphql";
 import { Roles } from "../../../../@types/roles";
-import { GraphQlExceptionFilter } from "../../../../filters/grapql-exception.filter";
+import { GraphQlExceptionFilter } from "../../../../filters/graphql-exception.filter";
 import { UserService } from "../user.service";
 import { AuthenticationToken, User } from "./user.model";
 
