@@ -2,7 +2,7 @@ import './utils/set-default-env';
 import { NestFactory } from "@nestjs/core";
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 
-import { RabbitMQQueues } from "./constants/rabbit-mq-queues";
+import { RabbitMQQueues } from "./constants/rabbit-mq-queues.enum";
 
 import { AppModule } from "./app.module";
 import { MicroserviceExceptionFilter } from "./filters/rpc-exception.filter";

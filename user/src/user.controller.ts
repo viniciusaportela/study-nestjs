@@ -3,7 +3,7 @@ import { MessagePattern } from '@nestjs/microservices';
 
 import { AuthenticateUserDto } from "./dto/authenticate-user.dto";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { RabbitMQPatterns } from "./constants/rabbit-mq-patterns";
+import { RabbitMQPatterns } from "./constants/rabbit-mq-patterns.enum";
 import { UserService } from "./user.service";
 
 @Controller()
