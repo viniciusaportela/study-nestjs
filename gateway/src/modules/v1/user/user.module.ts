@@ -5,7 +5,7 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { UserResolver } from './graphql/user.resolver';
 
-import { RabbitMqQueues } from '../../../constants/rabbit-mq-queues';
+import { RabbitMqQueues } from '../../../constants/rabbit-mq-queues.enum';
 import { rabbitMqUri } from '../../../constants/rabbit-mq-uri';
 
 @Module({
