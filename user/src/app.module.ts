@@ -1,17 +1,23 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
+import { MongoConfigModule } from "./config/mongo/config.module";
+import { MongoConfigService } from "./config/mongo/config.service";
 
-import { mongoUri } from "./constants/mongo-uri";
-import { UserSchema } from "./schemas/user.schema";
-import { UserController } from "./user.controller";
-import { UserService } from "./user.service";
+import { UserModule } from "./user.module";
 
 @Module({
   imports: [
-    MongooseModule.forRoot(mongoUri),
-    MongooseModule.forFeature([{ name: 'user', schema: UserSchema }]), 
+    MongoConfigModule,
+    MongooseModule.forRootAsync({
+      imports: [MongoConfigModule],
+      useFactory: async (config: MongoConfigService) => ({
+        uri: config.uri,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }),
+      inject: [MongoConfigService]
+    }),
+    UserModule, 
   ],
-  controllers: [UserController],
-  providers: [UserService]
 })
 export class AppModule {}

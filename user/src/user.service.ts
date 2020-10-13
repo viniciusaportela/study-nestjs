@@ -4,16 +4,16 @@ import { InjectModel } from "@nestjs/mongoose";
 import { MD5 } from "crypto-js";
 import { Model } from "mongoose";
 
+import { BadCredentialsException } from './exceptions/bad-credentials.exception';
+import { NotFoundException } from './exceptions/not-found.exception';
 import { AuthenticateUserDto } from "./dto/authenticate-user.dto";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UserDocument } from "./schemas/user.schema";
-import config from './config';
-import { BadCredentialsException } from './exceptions/bad-credentials.exception';
-import { NotFoundException } from './exceptions/not-found.exception';
+import { AppConfigService } from './config/app/config.service';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel('user') private userModel: Model<UserDocument>) {}
+  constructor(@InjectModel('user') private userModel: Model<UserDocument>, private config: AppConfigService) {}
 
   async get(userId: string) {
     console.log('UserService -> ', userId)
@@ -31,7 +31,7 @@ export class UserService {
 
     if (userByName) {
       if (userByName.password === hashedProvidedPassword) {
-        const token = jwt.sign({ name: userByName.name, roles: userByName.level, id: userByName._id }, config.secret)
+        const token = jwt.sign({ name: userByName.name, roles: userByName.level, id: userByName._id }, this.config.secret)
         return token;
       } else {
         throw new BadCredentialsException();
